@@ -30,28 +30,15 @@ def swapface(file_path, file_path2):
 window = Tk()
 window.title("Po wybraniu zamknij okno...")
 window.geometry("400x130")
-label1 = Label(window, text = "Wybierz stevena seagala:").place(x = 5, y = 0)
-label2 = Label(window, text = "Wybierz myszke miki:").place(x = 5, y = 25)
-label3 = Label(window, text = "(test)Zapisz jako:").place(x = 5, y = 55) # testy
+label1 = Label(window, text = "Wybierz 1:").place(x = 5, y = 0)
+label2 = Label(window, text = "Wybierz 2:").place(x = 5, y = 25)
+label3 = Label(window, text = "(test):").place(x = 5, y = 55) # testy
 b1 = Button(window, text = "Pierwsze zdjecie", command = get_file_path).pack()
 b2 = Button(window, text = "Drugie zdjecie", command = get_file_path2).pack()
 b3 = Button(window, text = "Pokaz efekt", command = swapface).pack()
-#roz = StringVar(window) # testy
-#roz.set("x.jpg") # testy
-#lista = OptionMenu(window, roz, "x.jpg", "x.png").pack() # testy
 
 window.mainloop()
 
-
-
-#image = cv2.imread(file_path)
-#imgGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-#faces = face_Cascade.detectMultiScale(imgGray, 1.1, 4)
-#image2 = cv2.imread(file_path2)
-
-#for (x, y, w, h) in faces:
-# image[x:x+w, y:y+h]= cv2.resize(image2, (w,h))
-
-#cv2.imshow('img', image)
+cv2.imshow('img', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
