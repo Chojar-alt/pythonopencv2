@@ -34,7 +34,7 @@ class Nowa:
   label3 = Label(window, text = "(test)Zapisz jako:").place(x = 5, y = 55) # testy
   b1 = Button(window, text = "Pierwsze zdjecie", command = file_path(self=None)).pack()
   b2 = Button(window, text = "Drugie zdjecie", command = file_path2(self=None).pack()
-  #b3 = Button(window, text = "Pokaz efekt", command = faceswap(None)).pack()
+  b3 = Button(window, text = "Pokaz efekt", command = faceswap).pack()
 
   window.mainloop()
   cv2.waitKey(0)
