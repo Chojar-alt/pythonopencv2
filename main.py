@@ -7,7 +7,7 @@ from tkinter import filedialog
 
 class Nowa:
 
-#
+
 
  def __init__(self):
   self.image = cv2.imread(self.file_path)
