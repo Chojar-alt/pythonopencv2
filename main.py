@@ -7,7 +7,8 @@ from tkinter import filedialog
 
 file_path = ""
 file_path2 = ""
-
+image = ""
+file = ""
 
 def get_file_path():
  global file_path
@@ -24,6 +25,7 @@ def get_file_path2():
 def swapface():
  global file_path
  global file_path2
+
  #print("sciezka : {}".format(file_path))
  image = cv2.imread(file_path)
  image2 = cv2.imread(file_path2)
@@ -34,8 +36,9 @@ def swapface():
  for (x, y, w, h) in faces:
   image[x:x + w, y:y + h] = cv2.resize(image2, (w, h))
   cv2.imshow('img', image)
-  cv2.imwrite('result.jpg', image)
- window.destroy()
+  window.destroy()
+
+
 
 window = Tk()
 window.title("Po wybraniu zamknij okno...")
@@ -45,8 +48,7 @@ label2 = Label(window, text = "Wybierz 2:").place(x = 5, y = 25)
 label3 = Label(window, text = "Sprawdź ").place(x = 5, y = 55) # testy
 b1 = Button(window, text = "Pierwsze zdjecie", command = get_file_path).pack()
 b2 = Button(window, text = "Drugie zdjecie", command = get_file_path2).pack()
-b3 = Button(window, text = "Pokaz efekt i zapisz", command = swapface).pack()
-
+b3 = Button(window, text = "Pokaz efekt", command = swapface).pack()
 window.mainloop()
 
 cv2.waitKey(0)
