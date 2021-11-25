@@ -5,7 +5,7 @@ from math import hypot
 from tkinter import *
 from tkinter import filedialog
 
-class Nowa:
+class App(object):
 
   def __init__(self):
    self.image = cv2.imread(self.file_path)
@@ -26,6 +26,7 @@ class Nowa:
 
    cv2.imshow(self.image)
 
+class AppRun(App):
 
   window = Tk()
   window.title("Po wybraniu zamknij okno...")
@@ -33,9 +34,9 @@ class Nowa:
   label1 = Label(window, text = "Wybierz 1:").place(x = 5, y = 0)
   label2 = Label(window, text = "Wybierz 2:").place(x = 5, y = 25)
   label3 = Label(window, text = "(test)Zapisz jako:").place(x = 5, y = 55) # testy
-  b1 = Button(window, text = "Pierwsze zdjecie", command = file_path(self=None)).pack()
-  b2 = Button(window, text = "Drugie zdjecie", command = file_path2(self=None)).pack()
-  b3 = Button(window, text = "Pokaz efekt", command = faceswap(self=None)).pack()
+  b1 = Button(window, text = "Pierwsze zdjecie", command = App.file_path(self=None)).pack()
+  b2 = Button(window, text = "Drugie zdjecie", command = App.file_path2(self=None)).pack()
+  b3 = Button(window, text = "Pokaz efekt", command = App.faceswap(self=None)).pack()
 
   window.mainloop()
   cv2.waitKey(0)
