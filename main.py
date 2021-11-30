@@ -4,9 +4,11 @@ import numpy as np
 from math import hypot
 from tkinter import *
 from tkinter import filedialog
+from PIL import Image
 
 file_path = ""
 file_path2 = ""
+image = ""
 
 
 def get_file_path():
@@ -24,6 +26,7 @@ def get_file_path2():
 def swapface():
  global file_path
  global file_path2
+ global image
  #print("sciezka : {}".format(file_path))
  image = cv2.imread(file_path)
  image2 = cv2.imread(file_path2)
@@ -33,9 +36,27 @@ def swapface():
  faces = face_Cascade.detectMultiScale(imgGray, 1.1, 4)
  for (x, y, w, h) in faces:
   image[x:x + w, y:y + h] = cv2.resize(image2, (w, h))
-  cv2.imshow('img', image)
-  cv2.imwrite('result.jpg', image)
+  return image
+  #cv2.imshow('img', image)
+  #cv2.imwrite('result.jpg', image)
+ #window.destroy()
+
+def showface():
+ global image
+ swapface()
  window.destroy()
+ cv2.imshow('img', image)
+
+def saveas():
+ global image
+ swapface()
+ image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+ im_pil = Image.fromarray(image)
+ a = filedialog.asksaveasfile(defaultextension=".jpg")
+ print("sciezka : {}".format(a))
+ im_pil.save(a)
+
+
 
 window = Tk()
 window.title("Po wybraniu zamknij okno...")
@@ -45,7 +66,8 @@ label2 = Label(window, text = "Wybierz 2:").place(x = 5, y = 25)
 label3 = Label(window, text = "Sprawdź ").place(x = 5, y = 55) # testy
 b1 = Button(window, text = "Pierwsze zdjecie", command = get_file_path).pack()
 b2 = Button(window, text = "Drugie zdjecie", command = get_file_path2).pack()
-b3 = Button(window, text = "Pokaz efekt i zapisz", command = swapface).pack()
+b3 = Button(window, text = "Pokaz efekt i zapisz", command = showface).pack()
+b4 = Button(window, text = "save  as", command = saveas).pack()
 
 window.mainloop()
 
