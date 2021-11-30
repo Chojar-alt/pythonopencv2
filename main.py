@@ -40,7 +40,7 @@ def swapface():
   #cv2.imshow('img', image)
   #cv2.imwrite('result.jpg', image)
  #window.destroy()
-
+#
 def showface():
  global image
  swapface()
