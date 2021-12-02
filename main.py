@@ -7,6 +7,9 @@ file_path = ""
 file_path2 = ""
 image = ""
 
+global file_path
+global file_path2
+
 
 def get_file_path():
  global file_path
@@ -60,6 +63,5 @@ b3 = Button(window, text = "Pokaz efekt", command = showface).pack()
 b4 = Button(window, text = "Zapisz jako", command = saveas).pack()
 
 window.mainloop()
-
 cv2.waitKey(0)
 cv2.destroyAllWindows()
