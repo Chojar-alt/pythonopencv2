@@ -9,6 +9,8 @@ from PIL import Image
 file_path = ""
 file_path2 = ""
 image = ""
+image2 = ""
+dst = ""
 
 
 def get_file_path():
@@ -21,26 +23,50 @@ def get_file_path():
 def get_file_path2():
  global file_path2
  file_path2 = filedialog.askopenfilename(title="Wybierz plik", filetypes=(("jpg", "*.jpg") ,("png", "*.png") ))
- l2 = Label(window, text=file_path2).pack()
+ l2 = Label(window, text=file_path).pack()
+
+def deleatebackgorund():
+ global file_path2
+ global image2
+ image2 = cv2.imread(file_path2)
+ mask = np.zeros(image2.shape[:2], np.uint8)
+ bgdModel = np.zeros((1, 65), np.float64)
+ fgdModel = np.zeros((1, 65), np.float64)
+
+ rect = (1, 30, 665, 344)
+ cv2.grabCut(image2, mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
+
+ mask2 = np.where((mask == 2) | (mask == 0), 0, 1).astype('uint8')
+ img = image2 * mask2[:, :, np.newaxis]
+ # cv2.imshow('img',img)
+ cv2.imwrite('img.png', img)
+ file_name = "img.png"
+ src = cv2.imread(file_name, 1)
+ tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+ _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+ b, g, r = cv2.split(src)
+ rgba = [b, g, r, alpha]
+ dst = cv2.merge(rgba, 4)
+
 
 def swapface():
  global file_path
  global file_path2
  global image
+ #global image2
+ global dst
  #print("sciezka : {}".format(file_path))
  image = cv2.imread(file_path)
- image2 = cv2.imread(file_path2)
- #print (image)
- imgGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+# image2 = deleatebackgorund()
+# image2 = cv2.imread(file_path2)
+ imgGray = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
  face_Cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
  faces = face_Cascade.detectMultiScale(imgGray, 1.1, 4)
  for (x, y, w, h) in faces:
   image[x:x + w, y:y + h] = cv2.resize(image2, (w, h))
   return image
-  #cv2.imshow('img', image)
-  #cv2.imwrite('result.jpg', image)
- #window.destroy()
-#
+
+
 def showface():
  global image
  swapface()
